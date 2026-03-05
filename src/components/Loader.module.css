@@ -1,0 +1,36 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  background: var(--charcoal);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: loaderFade 0.8s 1.6s forwards;
+}
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  margin-bottom: 2rem;
+  animation: fadeUp 0.8s 0.3s both;
+}
+.line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: left;
+  animation: lineGrow 1.2s 0.5s var(--transition) both;
+  transform: scaleX(0);
+}
+@keyframes lineGrow { to { transform: scaleX(1); } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes loaderFade {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}

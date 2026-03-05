@@ -1,0 +1,28 @@
+.cursor {
+  width: 10px;
+  height: 10px;
+  background: var(--gold);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.ring {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 169, 110, 0.6);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s;
+}
+.cursor.hover { width: 16px; height: 16px; background: var(--gold-light); }
+.ring.hover   { width: 52px; height: 52px; border-color: var(--gold); }
+
+@media (max-width: 768px) {
+  .cursor, .ring { display: none; }
+}

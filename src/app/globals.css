@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap');
+
+:root {
+  --gold: #c9a96e;
+  --gold-light: #e8d5a3;
+  --gold-dark: #8b6914;
+  --beige: #f5ede0;
+  --beige-dark: #ede0cc;
+  --charcoal: #1a1714;
+  --charcoal-mid: #2d2820;
+  --brown: #4a3728;
+  --brown-light: #7a5c45;
+  --cream: #faf6f0;
+  --white: #ffffff;
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--charcoal);
+  color: var(--charcoal);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 1024px) {
+  body { cursor: auto; }
+  a, button, select { cursor: pointer !important; }
+  input, textarea { cursor: text !important; }
+}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--gold);
+  z-index: 9997;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.1s linear;
+  pointer-events: none;
+}
+
+/* ─── REVEAL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+/* ─── GOLD LINE ─── */
+.gold-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  margin: 1.8rem 0;
+  display: block;
+}
+
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+
+/* ─── SECTION TITLE ─── */
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* ─── SECTION HEADER CENTER ─── */
+.section-header-center {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 5rem;
+}
+.section-header-center p:not(.section-label) {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 15px 36px;
+  text-decoration: none;
+  transition: all 0.4s var(--transition);
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  cursor: none;
+}
+.btn-primary:hover {
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 15px 36px;
+  text-decoration: none;
+  transition: all 0.4s var(--transition);
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  cursor: none;
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  .section-header-center { margin-bottom: 3rem; }
+  .section-label { letter-spacing: 0.32em; }
+  .gold-line { margin: 1.3rem 0; }
+  .btn-primary,
+  .btn-outline {
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+    padding: 13px 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .btn-primary,
+  .btn-outline {
+    width: min(100%, 320px);
+  }
+}

@@ -1,0 +1,138 @@
+.section {
+  background: var(--beige);
+  padding: clamp(5rem, 10vw, 10rem) 4vw;
+}
+.filterRow {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+.filterBtn {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  padding: 9px 22px;
+  border: 1px solid rgba(74,55,40,0.3);
+  background: transparent;
+  color: var(--brown-light);
+  cursor: none;
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+.filterBtn:hover, .filterActive {
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--gold);
+}
+.grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem;
+}
+.card {
+  background: var(--white);
+  overflow: hidden;
+  transition: transform 0.4s var(--transition), box-shadow 0.4s;
+  cursor: none;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(74,55,40,0.15);
+}
+.imgWrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  transition: transform 0.7s var(--transition);
+}
+.card:hover .img { transform: scale(1.06); }
+.tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--gold);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  font-family: 'Jost', sans-serif;
+  color: var(--charcoal);
+}
+.body { padding: 1.5rem; }
+.name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 0.5rem;
+}
+.desc {
+  font-size: 0.82rem;
+  color: var(--brown-light);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--beige-dark);
+}
+.price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--gold-dark);
+}
+.add {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--gold);
+  background: transparent;
+  color: var(--gold);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+  transition: all 0.3s;
+}
+.add:hover { background: var(--gold); color: var(--white); }
+
+@media (max-width: 768px) {
+  .filterRow {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    margin-bottom: 2.4rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .filterBtn {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    padding: 8px 15px;
+  }
+  .body { padding: 1.1rem; }
+  .name { font-size: 1.2rem; }
+}

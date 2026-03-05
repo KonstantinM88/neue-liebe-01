@@ -1,0 +1,53 @@
+.wrapper {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bg {
+  position: absolute;
+  inset: -15%;
+  background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=85');
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(26,23,20,0.72);
+}
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 4vw;
+  max-width: 900px;
+}
+.quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+.author {
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    height: 52vh;
+    min-height: 320px;
+  }
+  .author { letter-spacing: 0.24em; }
+}
