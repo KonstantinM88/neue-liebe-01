@@ -6,13 +6,13 @@ Premium restaurant website built with **Next.js 15**, **TypeScript 5.9**, **Pris
 
 | Tool | Version |
 |------|---------|
-| Next.js | 15.2.4 |
+| Next.js | 15.2.8 |
 | React | 19 |
 | TypeScript | 5.9.3 |
 | Prisma | 6.19.2 |
 | Node.js | v22.14.0 |
 
-> **Note:** Next.js v16 does not exist yet. This project uses **15.2.4** (latest stable).
+> **Note:** Next.js v16 does not exist yet. This project uses **15.2.8** (latest stable).
 
 ---
 

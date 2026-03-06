@@ -1,60 +1,102 @@
+/* ═══════════════════════════════════════════════
+   NAV — mobile first (320px+)
+   Layout: [Logo] ────────────────── [DE|EN  ☰]
+   justify-content: space-between guarantees this always.
+═══════════════════════════════════════════════ */
 .nav {
+  /* Fixed — use left/right, never width:100% */
   position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 0 4vw;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  max-width: 100vw;
+  z-index: 2000;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 80px;
-  transition: background 0.5s ease, height 0.4s ease, box-shadow 0.5s ease;
+
+  height: 64px;
+  padding: 0 16px;
+
+  background: transparent;
+  transition: height 0.4s ease, background 0.4s ease,
+              box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+
+  transform: translateZ(0);
+  isolation: isolate;
 }
+
 .scrolled {
-  background: rgba(26, 23, 20, 0.96);
-  backdrop-filter: blur(20px);
-  height: 68px;
-  box-shadow: 0 2px 40px rgba(0,0,0,0.4);
+  background: rgba(18, 16, 14, 0.95);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.12);
 }
+
+/* ─── LOGO ─── */
 .logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.55rem;
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.15em;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   line-height: 1;
-  max-width: 230px;
-}
-.logo span {
-  font-size: 0.52rem;
-  font-weight: 300;
-  font-family: 'Jost', sans-serif;
-  letter-spacing: 0.22em;
-  color: var(--gold-light);
-  margin-top: 4px;
-  white-space: nowrap;
-}
-.links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-.links a {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.75);
   text-decoration: none;
-  position: relative;
-  padding-bottom: 4px;
-  transition: color 0.3s;
-  cursor: none;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 0;
+  max-width: calc(100% - 146px);
+  overflow: hidden;
+  z-index: 1;
 }
-.links a::after {
+
+.logoMain {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  color: var(--gold);
+  font-size: clamp(1.08rem, 4vw, 1.4rem);
+  letter-spacing: clamp(0.05em, 0.18vw, 0.08em);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logoSub {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: var(--gold-light);
+  font-size: clamp(0.32rem, 1.25vw, 0.45rem);
+  letter-spacing: clamp(0.08em, 0.3vw, 0.14em);
+  white-space: nowrap;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── DESKTOP LINKS — hidden on mobile ─── */
+.desktopLinks {
+  display: none;
+}
+
+.desktopLink {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s ease;
+}
+
+.desktopLink::after {
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -62,130 +104,707 @@
   background: var(--gold);
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.4s var(--transition);
+  transition: transform 0.3s ease;
 }
-.links a:hover { color: var(--gold); }
-.links a:hover::after { transform: scaleX(1); transform-origin: left; }
 
-.right { display: flex; align-items: center; gap: 1.5rem; }
-.langSwitch { display: flex; gap: 0.3rem; align-items: center; }
-.langBtn {
-  font-family: 'Jost', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  cursor: none;
-  padding: 4px 8px;
-  color: rgba(255,255,255,0.5);
-  transition: all 0.3s;
+.desktopLink:hover { color: var(--gold); }
+.desktopLink:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ─── DESKTOP RIGHT — hidden on mobile ─── */
+.desktopRight {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
 }
-.langBtn.active {
-  color: var(--gold);
-  border: 1px solid rgba(201,169,110,0.4);
-}
-.sep { color: rgba(255,255,255,0.2); font-size: 0.7rem; }
+
 .cta {
   font-family: 'Jost', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--charcoal);
   background: var(--gold);
-  border: none;
-  padding: 10px 22px;
-  cursor: none;
   text-decoration: none;
-  transition: background 0.3s, transform 0.3s;
+  padding: 9px 16px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
-.cta:hover { background: var(--gold-light); transform: translateY(-1px); }
 
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
+.cta:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+/* ─── MOBILE RIGHT — [DE|EN] [☰] ─── */
+.mobileRight {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: max-content;
+  z-index: 2;
+}
+
+/* ─── LANGUAGE ROW (shared) ─── */
+.langRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  min-width: max-content;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.langBtn {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
   background: none;
-  border: none;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
-  padding: 5px;
-}
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
-  transition: all 0.3s ease;
-}
-.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  line-height: 1;
+  transition: color 0.25s ease, border-color 0.25s ease;
 
-.mobileMenu {
+  font-size: clamp(0.58rem, 2vw, 0.7rem);
+  letter-spacing: clamp(0.05em, 0.2vw, 0.08em);
+  padding: 8px clamp(5px, 1.4vw, 8px);
+}
+
+.langBtn:hover { color: rgba(255, 255, 255, 0.9); }
+
+.langActive {
+  color: var(--gold) !important;
+  border-color: rgba(201, 169, 110, 0.5) !important;
+}
+
+.langSep {
+  font-size: clamp(0.58rem, 2vw, 0.7rem);
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1;
+  margin: 0;
+  user-select: none;
+}
+
+/* ─── HAMBURGER ─── */
+.hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 10vw, 42px);
+  height: clamp(38px, 10vw, 42px);
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  border-radius: 2px;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-left: clamp(4px, 1vw, 8px);
+  transition: border-color 0.3s ease, background 0.2s ease;
+}
+
+.hamburger:hover { border-color: rgba(201, 169, 110, 0.8); }
+.hamburger:active { background: rgba(201, 169, 110, 0.1); }
+
+.burgerIcon {
+  width: clamp(16px, 4.4vw, 18px);
+  height: clamp(16px, 4.4vw, 18px);
+  color: var(--gold);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE OVERLAY
+═══════════════════════════════════════════════ */
+.overlay {
   position: fixed;
-  inset: 0;
-  background: var(--charcoal);
-  z-index: 998;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1999;
+  display: flex;
+  flex-direction: column;
+  background: rgba(14, 12, 10, 0.98);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transform: translateX(100%);
+  transition: transform 450ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.overlayOpen {
+  transform: translateX(0);
+}
+
+/* Overlay top bar */
+.overlayTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 0 16px;
+  height: 64px;
+  border-bottom: 1px solid rgba(201, 169, 110, 0.1);
+}
+
+.overlayLogo {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  color: var(--gold);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(201, 169, 110, 0.3);
+  border-radius: 2px;
+  background: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.closeBtn:hover { border-color: var(--gold); }
+
+.closeIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--gold);
+}
+
+/* Overlay links area */
+.overlayBody {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1.4rem;
-  padding: 8.5rem 1.5rem 2rem;
+  justify-content: center;
   overflow-y: auto;
-  transform: translateX(100%);
-  transition: transform 0.6s var(--transition);
+  padding: 20px 24px;
+  gap: 2px;
 }
-.mobileMenu.menuOpen { transform: translateX(0); }
-.mobileMenu a {
+
+.overlayLink {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.75rem, 9vw, 2.5rem);
   font-weight: 300;
+  font-size: clamp(1.45rem, 5vw, 2.2rem);
+  letter-spacing: 0.06em;
   color: var(--beige);
   text-decoration: none;
-  letter-spacing: 0.1em;
-  transition: color 0.3s;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.overlayLink:hover { color: var(--gold); }
+
+.overlayDivider {
+  width: 28px;
+  height: 1px;
+  background: rgba(201, 169, 110, 0.3);
+  margin: 8px 0;
+  flex-shrink: 0;
+}
+
+.overlayCta {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(1.45rem, 5vw, 2.2rem);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+  max-width: 320px;
+  padding: 7px 20px;
+  border: 1px solid rgba(201, 169, 110, 0.45);
+  transition: background 0.3s ease;
+}
+
+.overlayCta:hover { background: rgba(201, 169, 110, 0.08); }
+
+.overlayLangRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.overlayLangBtn {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.overlayLangBtn:hover { color: white; }
+
+/* Overlay footer */
+.overlayFooter {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid rgba(201, 169, 110, 0.08);
+}
+
+.overlayAddr {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.48rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.22);
   text-align: center;
 }
-.mobileMenu a:hover { color: var(--gold); }
 
-.mobileCta {
-  margin-top: 0.8rem;
-  padding: 0.45rem 1rem;
-  border: 1px solid rgba(201,169,110,0.45);
-  color: var(--gold) !important;
+.overlayPhone {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.54rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.mobileLangSwitch {
-  display: none;
-  align-items: center;
-  gap: 0.3rem;
-  margin-top: 0.8rem;
+.overlayPhone:hover { color: var(--gold-light); }
+
+/* ═══════════════════════════════════════════════
+   BREAKPOINTS — progressively enhance
+═══════════════════════════════════════════════ */
+
+/* 360px — slightly more breathing room */
+@media (min-width: 360px) {
+  .nav { padding: 0 18px; }
+  .logo { left: 18px; }
+  .mobileRight { right: 18px; }
+  .overlayTop { padding: 0 18px; }
 }
 
-@media (max-width: 968px) {
-  .links, .cta { display: none; }
-  .hamburger { display: flex; }
+/* 430px (iPhone 14 Pro Max etc.) */
+@media (min-width: 430px) {
+  .nav { padding: 0 20px; height: 66px; }
+  .logo {
+    left: 20px;
+    max-width: calc(100% - 156px);
+  }
+  .mobileRight { right: 20px; }
+  .logoMain { font-size: 1.5rem; }
+  .logoSub { font-size: 0.48rem; }
+  .overlayTop { height: 66px; padding: 0 20px; }
+  .overlayLogo { font-size: 1.05rem; }
+  .closeBtn { width: 38px; height: 38px; }
 }
 
-@media (max-width: 768px) {
-  .nav { height: 72px; padding: 0 1rem; }
-  .scrolled { height: 62px; }
-  .logo { font-size: 1.2rem; }
-  .logo span { font-size: 0.46rem; }
-  .right { gap: 0.6rem; }
+/* 480px */
+@media (min-width: 480px) {
+  .nav { padding: 0 22px; height: 68px; }
+  .logo {
+    left: 22px;
+    max-width: calc(100% - 164px);
+  }
+  .mobileRight { right: 22px; }
+  .logoMain { font-size: 1.55rem; letter-spacing: 0.09em; }
+  .logoSub {
+    font-size: 0.5rem;
+    letter-spacing: 0.16em;
+  }
+  .overlayTop { height: 68px; padding: 0 22px; }
+  .overlayLogo { font-size: 1.1rem; }
+  .closeBtn { width: 40px; height: 40px; }
+  .closeIcon { width: 17px; height: 17px; }
+}
+
+/* <=389px — compact fallback so DE | EN | menu never clip */
+@media (max-width: 389px) {
+  .nav {
+    padding: 0 12px;
+    height: 58px;
+  }
+
+  .logo {
+    left: 12px;
+    max-width: calc(100% - 108px);
+  }
+
+  .logoMain {
+    font-size: 1.02rem;
+    letter-spacing: 0.05em;
+  }
+
+  .logoSub {
+    display: none;
+  }
+
+  .mobileRight {
+    right: 10px;
+    gap: 2px;
+  }
+
+  .langRow {
+    gap: 0;
+  }
+
   .langBtn {
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    padding: 3px 6px;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    padding: 6px 4px;
+  }
+
+  .langSep { font-size: 0.58rem; }
+
+  .hamburger {
+    width: 32px;
+    height: 32px;
+    margin-left: 2px;
+  }
+
+  .burgerIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .overlayTop {
+    height: 58px;
+    padding: 0 12px;
+  }
+
+  .overlayLogo { font-size: 0.94rem; }
+
+  .closeBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .closeIcon {
+    width: 14px;
+    height: 14px;
   }
 }
 
-@media (max-width: 600px) {
-  .right { display: none; }
-  .logo { max-width: 165px; }
-  .logo span { display: none; }
-  .mobileLangSwitch { display: flex; }
+/* 390px–429px — still compact, but less aggressive */
+@media (min-width: 390px) and (max-width: 429px) {
+  .nav {
+    padding: 0 14px;
+  }
+
+  .logo {
+    left: 14px;
+    max-width: calc(100% - 126px);
+  }
+
+  .mobileRight {
+    right: 12px;
+  }
+
+  .logoMain {
+    font-size: 1.18rem;
+    letter-spacing: 0.06em;
+  }
+
+  .logoSub {
+    font-size: 0.34rem;
+    letter-spacing: 0.1em;
+  }
+
+  .langBtn {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    padding: 7px 5px;
+  }
+
+  .langSep { font-size: 0.62rem; }
+
+  .hamburger {
+    width: 34px;
+    height: 34px;
+    margin-left: 3px;
+  }
+
+  .burgerIcon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .overlayTop {
+    padding: 0 14px;
+  }
+}
+
+/* 640px */
+@media (min-width: 640px) {
+  .nav { padding: 0 24px; height: 70px; }
+  .logo {
+    left: 24px;
+    max-width: calc(100% - 176px);
+  }
+  .mobileRight { right: 24px; }
+
+  .logoMain { font-size: 1.62rem; letter-spacing: 0.1em; }
+  .logoSub {
+    font-size: 0.52rem;
+    letter-spacing: 0.16em;
+  }
+
+  .langBtn {
+    font-size: 0.72rem;
+    padding: 8px 9px;
+  }
+
+  .langSep { font-size: 0.72rem; }
+
+  .hamburger {
+    width: 44px;
+    height: 44px;
+  }
+
+  .burgerIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .overlayTop { height: 70px; padding: 0 24px; }
+}
+
+/* 768px */
+@media (min-width: 768px) {
+  .nav { padding: 0 28px; height: 72px; }
+  .logo {
+    left: 28px;
+    max-width: calc(100% - 186px);
+  }
+  .mobileRight { right: 28px; }
+
+  .logoMain { font-size: 1.75rem; letter-spacing: 0.11em; }
+  .logoSub {
+    font-size: 0.54rem;
+    letter-spacing: 0.18em;
+  }
+
+  .langBtn {
+    font-size: 0.74rem;
+    padding: 8px 10px;
+  }
+
+  .langSep { font-size: 0.74rem; }
+
+  .hamburger {
+    width: 46px;
+    height: 46px;
+  }
+
+  .burgerIcon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .overlayTop { height: 72px; padding: 0 28px; }
+  .overlayLogo { font-size: 1.15rem; }
+}
+
+/* 1024px — DESKTOP SWITCH */
+@media (min-width: 1024px) {
+  .nav {
+    height: 68px;
+    padding: 0 32px;
+    gap: 0;
+  }
+
+  .logo {
+    position: static;
+    top: auto;
+    left: auto;
+    transform: none;
+    max-width: none;
+    overflow: visible;
+  }
+
+  /* Show desktop elements */
+  .desktopLinks {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 22px;
+    flex: 1;
+    justify-content: center;
+    margin: 0 16px;
+  }
+
+  .desktopRight {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  /* Hide mobile group */
+  .mobileRight { display: none; }
+
+  /* Hide overlay */
+  .overlay { display: none; }
+
+  /* Logo desktop */
+  .logoMain { font-size: 1.35rem; letter-spacing: 0.12em; }
+  .logoSub {
+    display: block;
+    font-size: 0.4rem;
+    letter-spacing: 0.2em;
+    margin-top: 4px;
+  }
+
+  /* Desktop lang btn — slightly larger */
+  .langBtn {
+    font-size: 0.65rem;
+    letter-spacing: 0.13em;
+    padding: 8px 9px;
+  }
+}
+
+/* 1280px */
+@media (min-width: 1280px) {
+  .nav { height: 78px; padding: 0 4vw; }
+
+  .desktopLinks { gap: 28px; }
+  .desktopRight { gap: 16px; }
+
+  .desktopLink { font-size: 0.66rem; letter-spacing: 0.15em; }
+
+  .cta { font-size: 0.66rem; letter-spacing: 0.16em; padding: 10px 20px; }
+
+  .logoMain { font-size: 1.55rem; letter-spacing: 0.15em; }
+  .logoSub { font-size: 0.5rem; letter-spacing: 0.24em; }
+
+  .langBtn { font-size: 0.67rem; padding: 8px 10px; }
+}
+
+/* 1536px */
+@media (min-width: 1536px) {
+  .nav { height: 82px; }
+  .desktopLinks { gap: 32px; }
+  .desktopLink { font-size: 0.7rem; letter-spacing: 0.18em; }
+  .cta { font-size: 0.68rem; letter-spacing: 0.18em; padding: 10px 22px; }
+  .logoMain { font-size: 1.6rem; }
+  .logoSub { font-size: 0.52rem; }
+}
+
+/* Mobile/tablet stabilization layer.
+   Keeps controls visible after hydration and webfont swap. */
+@media (max-width: 1023px) {
+  .nav {
+    height: 60px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .logo {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    max-width: none;
+    min-width: 0;
+    flex: 1 1 auto;
+    margin-right: 8px;
+    overflow: hidden;
+  }
+
+  .logoMain {
+    font-size: 1.06rem;
+    letter-spacing: 0.05em;
+  }
+
+  .logoSub {
+    display: block;
+    font-size: 0.3rem;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+  }
+
+  .mobileRight {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-left: auto;
+    gap: 2px;
+    min-width: max-content;
+  }
+
+  .langRow {
+    min-width: max-content;
+    gap: 0;
+  }
+
+  .langBtn {
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    padding: 6px 4px;
+  }
+
+  .langSep {
+    font-size: 0.58rem;
+  }
+
+  .hamburger {
+    width: 32px;
+    height: 32px;
+    margin-left: 2px;
+  }
+
+  .burgerIcon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+@media (min-width: 390px) and (max-width: 1023px) {
+  .nav { padding: 0 14px; }
+  .logoMain { font-size: 1.16rem; }
+  .logoSub { font-size: 0.34rem; letter-spacing: 0.1em; }
+  .langBtn { font-size: 0.62rem; padding: 7px 5px; }
+  .langSep { font-size: 0.62rem; }
+  .hamburger { width: 34px; height: 34px; margin-left: 3px; }
+  .burgerIcon { width: 15px; height: 15px; }
+}
+
+@media (min-width: 430px) and (max-width: 1023px) {
+  .nav { height: 66px; padding: 0 20px; }
+  .logoMain { font-size: 1.5rem; }
+  .logoSub { font-size: 0.48rem; }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  .nav { height: 68px; padding: 0 22px; }
+  .logoMain { font-size: 1.55rem; letter-spacing: 0.09em; }
+  .logoSub { font-size: 0.5rem; letter-spacing: 0.16em; }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .nav { height: 70px; padding: 0 24px; }
+  .logoMain { font-size: 1.62rem; letter-spacing: 0.1em; }
+  .logoSub { font-size: 0.52rem; letter-spacing: 0.16em; }
+  .langBtn { font-size: 0.72rem; padding: 8px 9px; }
+  .langSep { font-size: 0.72rem; }
+  .hamburger { width: 44px; height: 44px; margin-left: 4px; }
+  .burgerIcon { width: 18px; height: 18px; }
 }

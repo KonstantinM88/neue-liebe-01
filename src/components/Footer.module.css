@@ -113,6 +113,16 @@
 
 @media (max-width: 600px) {
   .top { grid-template-columns: 1fr; }
+  .col h5 {
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
+    margin-bottom: 0.9rem;
+  }
+  .col ul li a {
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.72);
+  }
+  .col p { color: rgba(255,255,255,0.62); }
   .bottom {
     flex-direction: column;
     align-items: flex-start;
